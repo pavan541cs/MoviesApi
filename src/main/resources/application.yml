@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: Movies Api
+  main:
+    banner-mode: OFF
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/moviesdb?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: secret
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,env,health,info,metrics,mappings,prometheus
+    health:
+      show-details: always
+    probes:
+      enabled: true
+
