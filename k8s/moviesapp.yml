@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: moviesapi
+  labels:
+    app: moviesapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moviesapi
+  template:
+    metadata:
+      labels:
+        app: moviesapi
+    spec:
+      containers:
+        - name: app-container
+          image: pavan541cs/moviesapp:1.0.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MYSQL_HOST
+              value: 172.20.232.46
+            - name: MYSQL_PORT
+              value: '30335'
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: moviesapi-svc
+  labels:
+    app: moviesapi
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+  selector:
+    app: moviesapi

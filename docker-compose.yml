@@ -5,35 +5,24 @@ services:
     image: movies-app:latest
     container_name: movies-app
     ports:
-      - "8080:8080"
+      - 8080:8080
     environment:
-      - MYSQL_HOST=localhost
-      - MYSQL_PORT=3306
-    links:
-      - mysql
-    networks:
-      - backend
+      - MYSQL_HOST=postgres
+      - MYSQL_PORT=5432
     healthcheck:
       test: "curl http://localhost:8080/actuator/health"
       start_period: 40s
     depends_on:
-      - mysql
+      - postgres
+    links:
+      - postgres
 
-  mysql:
-    image: mysql:8.0.25
-    container_name: mysql
+  postgres:
+    image: postgres:10.5
     restart: unless-stopped
-    ports:
-      - "3306:3306"
     environment:
-      - MYSQL_DATABASE=moviesdb
-      - MYSQL_ROOT_PASSWORD=secret
-    healthcheck:
-      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
-      start_period: 30s
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: "bridge"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=moviesdb
+    ports:
+      - '5432:5432'

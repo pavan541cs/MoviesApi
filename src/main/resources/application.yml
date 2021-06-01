@@ -6,10 +6,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/moviesdb?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: secret
+    url: 'jdbc:postgresql://${MYSQL_HOST:localhost}:${MYSQL_PORT:5432}/moviesdb?createDatabaseIfNotExist=true'
+    username: postgres
+    password: postgres
 
 management:
   endpoints:
@@ -20,4 +23,7 @@ management:
       show-details: always
     probes:
       enabled: true
-
+  metrics:
+    enable:
+      all: false
+      jvm: true

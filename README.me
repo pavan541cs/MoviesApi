@@ -1,0 +1,20 @@
+kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.14.1/crds.yaml
+kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.14.1/olm.yaml
+
+
+helm repo add stable https://charts.helm.sh/stable
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+
+helm search repo prometheus-community
+helm install prometheus-community/kube-prometheus-stack --name=monitoring --namespace=monitoring
+
+
+http://172.20.234.113:31637/config - Prom
+http://172.20.234.113:30100/#/alerts - Alert Manager
+
+
+Fluent bit
+
+
+
