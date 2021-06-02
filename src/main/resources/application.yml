@@ -25,5 +25,5 @@ management:
       enabled: true
   metrics:
     enable:
-      all: false
+      all: true
       jvm: true

@@ -39,8 +39,8 @@ public class MovieController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Movie createMovie(@Valid @RequestBody CreateMovieDto createMovieDto) {
-        Movie movie = movieMapper.toMovie(createMovieDto);
+    public Movie createMovie(@Valid @RequestBody Movie movie) {
+//        Movie movie = movieMapper.toMovie(createMovieDto);
         movie = movieService.createMovie(movie);
         LOG.info("Movie created {}", movie.getImdb());
         return movie;
