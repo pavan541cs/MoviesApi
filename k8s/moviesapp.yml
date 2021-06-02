@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: app-container
-          image: pavan541cs/moviesapp:1.0.0
+          image: pavan541cs/moviesapp:2.0.0
           ports:
             - containerPort: 8080
           env:
