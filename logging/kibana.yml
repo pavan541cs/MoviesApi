@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: logging
+  labels:
+    common.k8s.elastic.co/type: kibana
+spec:
+  type: NodePort
+  ports:
+    - port: 5601
+  selector:
+    common.k8s.elastic.co/type: kibana
+
+#---
+#
+#kind: Service
+#apiVersion: v1
+#metadata:
+#  name: elasticsearch
+#  namespace: logging
+#  labels:
+#    common.k8s.elastic.co/type: elasticsearch
+#spec:
+#  selector:
+#    common.k8s.elastic.co/type: elasticsearch
+#  clusterIP: None
+#  ports:
+#    - port: 9200
+#      name: rest
+#    - port: 9300
+#      name: inter-node

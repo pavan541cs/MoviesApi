@@ -11,6 +11,10 @@ spec:
       app: moviesapi
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '8080'
       labels:
         app: moviesapi
     spec:
@@ -21,9 +25,9 @@ spec:
             - containerPort: 8080
           env:
             - name: MYSQL_HOST
-              value: 172.20.232.46
+              value: postgres
             - name: MYSQL_PORT
-              value: '30335'
+              value: '5432'
 
 ---
 
@@ -31,11 +35,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: moviesapi-svc
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/path: '/actuator/prometheus'
+    prometheus.io/port: '8080'
   labels:
     app: moviesapi
 spec:
   type: NodePort
   ports:
-    - port: 8080
+    - name: metricsprometheus
+      targetPort: 8080
+      port: 8080
   selector:
     app: moviesapi

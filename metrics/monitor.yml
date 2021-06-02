@@ -1,0 +1,35 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: movies-app
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: moviesapi
+  endpoints:
+    - path: /actuator/prometheus
+      port: metricsprometheus
+      interval: 10s
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: movies-api-rules
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: Movies-API
+      rules:
+        - alert: PodDown
+          expr: up == 0
+          for: 1m
+          labels:
+            severity: page
+          annotations:
+            description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minute.'
+            summary: 'Instance {{ $labels.instance }} down'

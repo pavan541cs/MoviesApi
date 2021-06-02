@@ -10,11 +10,27 @@ helm search repo prometheus-community
 helm install prometheus-community/kube-prometheus-stack --name=monitoring --namespace=monitoring
 
 
-http://172.20.234.113:31637/config - Prom
-http://172.20.234.113:30100/#/alerts - Alert Manager
+http://192.168.64.24:32530/config - Prom
+http://192.168.64.24:32238/#/alerts - Alert Manager
+http://192.168.64.24:32450 - Grafana
+
+https://192.168.64.24:31638/ - Kinana
 
 
 Fluent bit
+$ kubectl create namespace logging
+$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-service-account.yaml
+$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role.yaml
+$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role-binding.yaml
+$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-configmap.yaml
+$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-ds-minikube.yaml
+
+
+ECK
+kubectl apply -f https://download.elastic.co/downloads/eck/1.0.1/all-in-one.yaml
+
+Elastic
+elastic, w7AzF9419fFhAM030V6CTQ1p
 
 
 
