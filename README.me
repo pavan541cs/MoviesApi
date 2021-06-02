@@ -1,7 +1,12 @@
-kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.14.1/crds.yaml
-kubectl apply -f https://github.com/operator-framework/operator-lifecycle-manager/releases/download/0.14.1/olm.yaml
+Deploy ECK Operator - (Elastic Search, Kibana)
+kubectl apply -f https://download.elastic.co/downloads/eck/1.0.1/all-in-one.yaml
+kubectl apply -f logging/eck.yaml
+kubectl apply -f logging/kibana.yml
 
+Deploy FluentBit
+kubectl apply -f logging/fluentbit.yml
 
+Deploy Prometheus Operator
 helm repo add stable https://charts.helm.sh/stable
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
@@ -10,24 +15,13 @@ helm search repo prometheus-community
 helm install prometheus-community/kube-prometheus-stack --name=monitoring --namespace=monitoring
 
 
+Working URLs for local minikube
+
 http://192.168.64.24:32530/config - Prom
 http://192.168.64.24:32238/#/alerts - Alert Manager
 http://192.168.64.24:32450 - Grafana
 
 https://192.168.64.24:31638/ - Kinana
-
-
-Fluent bit
-$ kubectl create namespace logging
-$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-service-account.yaml
-$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role.yaml
-$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/fluent-bit-role-binding.yaml
-$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-configmap.yaml
-$ kubectl create -f https://raw.githubusercontent.com/fluent/fluent-bit-kubernetes-logging/master/output/elasticsearch/fluent-bit-ds-minikube.yaml
-
-
-ECK
-kubectl apply -f https://download.elastic.co/downloads/eck/1.0.1/all-in-one.yaml
 
 Elastic
 elastic, w7AzF9419fFhAM030V6CTQ1p
